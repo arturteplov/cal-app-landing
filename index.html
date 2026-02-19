@@ -146,16 +146,17 @@
     .store-btn img { height: 52px; width: auto; }
     .store-btn-android { opacity: 0.55; cursor: not-allowed; pointer-events: none; }
 
-    /* Phone screenshots */
+    /* Phone screenshots – main flow (3) */
     .phones {
       display: flex;
       justify-content: center;
       align-items: center;
-      gap: 24px;
+      gap: 20px;
       min-height: 420px;
       padding: 20px 0;
+      flex-wrap: wrap;
     }
-    .screenshot-wrap { max-width: 210px; flex-shrink: 0; }
+    .screenshot-wrap { max-width: 200px; flex-shrink: 0; }
     .screenshot-wrap img {
       width: 100%;
       height: auto;
@@ -163,8 +164,82 @@
       border-radius: 28px;
       box-shadow: 0 32px 64px rgba(109,40,217,0.10), 0 0 0 1px rgba(0,0,0,0.04);
     }
-    .screenshot-wrap.screenshot-left  { transform: rotate(-5deg) translateY(12px); }
-    .screenshot-wrap.screenshot-right { transform: rotate(5deg) translateY(-12px); }
+    .screenshot-wrap.screenshot-left   { transform: rotate(-6deg) translateY(8px); }
+    .screenshot-wrap.screenshot-center { transform: translateY(-4px); }
+    .screenshot-wrap.screenshot-right  { transform: rotate(6deg) translateY(8px); }
+
+    /* Video – how AI scan works */
+    .video-section {
+      padding: 64px 24px;
+      background: var(--card-bg);
+    }
+    .video-inner {
+      max-width: 720px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .video-section .section-badge { margin-bottom: 12px; }
+    .video-section .section-title { margin-bottom: 8px; }
+    .video-section .section-sub { margin-bottom: 32px; }
+    .video-wrap {
+      position: relative;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 24px 48px rgba(109,40,217,0.12), 0 0 0 1px rgba(0,0,0,0.06);
+      background: var(--dark);
+      aspect-ratio: 9 / 16;
+      max-width: 340px;
+      margin: 0 auto;
+    }
+    .video-wrap video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .video-placeholder {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      padding: 24px;
+      text-align: center;
+      background: var(--card-bg);
+    }
+    .video-placeholder.hidden { display: none; }
+    .video-wrap video { position: relative; z-index: 1; }
+
+    /* AI Meal Advisor – bonus */
+    .advisor-section {
+      padding: 80px 24px;
+    }
+    .advisor-inner {
+      max-width: 1000px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: center;
+    }
+    .advisor-inner.reversed { direction: rtl; }
+    .advisor-inner.reversed > * { direction: ltr; }
+    .advisor-content { max-width: 420px; }
+    .advisor-content .section-title { margin-bottom: 12px; }
+    .advisor-content .section-sub { margin-bottom: 0; }
+    .advisor-phone {
+      max-width: 280px;
+      margin: 0 auto;
+    }
+    .advisor-phone img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 28px;
+      box-shadow: 0 24px 48px rgba(109,40,217,0.10), 0 0 0 1px rgba(0,0,0,0.04);
+    }
 
     /* ─── Features ─── */
     .features {
@@ -348,10 +423,15 @@
       .hero-right { order: 2; }
       .hero-description { max-width: none; margin-left: auto; margin-right: auto; }
       .store-buttons { justify-content: center; }
-      .phones { gap: 16px; min-height: 320px; }
-      .screenshot-wrap { max-width: 160px; }
-      .screenshot-wrap.screenshot-left  { transform: rotate(-4deg) translateY(8px); }
-      .screenshot-wrap.screenshot-right { transform: rotate(4deg) translateY(-8px); }
+      .phones { gap: 12px; min-height: 320px; }
+      .screenshot-wrap { max-width: 140px; }
+      .screenshot-wrap.screenshot-left   { transform: rotate(-5deg) translateY(6px); }
+      .screenshot-wrap.screenshot-center { transform: translateY(-2px); }
+      .screenshot-wrap.screenshot-right  { transform: rotate(5deg) translateY(6px); }
+      .advisor-inner { grid-template-columns: 1fr; gap: 32px; direction: ltr; }
+      .advisor-inner.reversed { direction: ltr; }
+      .advisor-content { max-width: none; text-align: center; }
+      .advisor-phone { max-width: 220px; }
       .features-grid { grid-template-columns: 1fr; max-width: 400px; margin: 0 auto; }
       .steps { grid-template-columns: 1fr; max-width: 360px; margin: 48px auto 0; }
       .section-sub { max-width: none; }
@@ -394,11 +474,47 @@
     <div class="hero-right">
       <div class="phones">
         <div class="screenshot-wrap screenshot-left">
-          <img src="screenshot-scan.png" alt="Calipso AI – Scan your food" width="210" height="454" />
+          <img src="screenshot-scan.png" alt="Position your meal, then tap to snap" width="200" height="433" />
+        </div>
+        <div class="screenshot-wrap screenshot-center">
+          <img src="screenshot-result.png" alt="Foods detected – calories and macros" width="200" height="433" />
         </div>
         <div class="screenshot-wrap screenshot-right">
-          <img src="screenshot-result.png" alt="Calipso AI – Nutrition results" width="210" height="454" />
+          <img src="screenshot-today.png" alt="Today – protein, carbs, fat, calories and progress" width="200" height="433" />
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Video: How AI scan works -->
+  <section class="video-section" id="see-it-in-action">
+    <div class="video-inner">
+      <span class="section-badge">See it in action</span>
+      <h2 class="section-title">How AI scan works</h2>
+      <p class="section-sub">Point at your meal, tap to snap — get instant calories and macros. Drop your video here to show the full flow.</p>
+      <div class="video-wrap" id="video-wrap">
+        <video id="hero-video" controls playsinline preload="metadata">
+          <source src="hero-video.mov" type="video/quicktime" />
+          <source src="hero-video.mp4" type="video/mp4" />
+          <source src="hero-video.webm" type="video/webm" />
+          Your browser does not support the video tag.
+        </video>
+        <div class="video-placeholder" id="video-placeholder">Video will appear here when <strong>hero-video.mov</strong> (or .mp4 / .webm) is in the <code>landing/</code> folder.</div>
+      </div>
+      <p style="margin-top:16px;font-size:0.9rem;color:var(--text-muted);">Your AI scan demo is playing from <code>landing/hero-video.mov</code>.</p>
+    </div>
+  </section>
+
+  <!-- AI Meal Advisor (bonus) -->
+  <section class="advisor-section">
+    <div class="advisor-inner">
+      <div class="advisor-content">
+        <span class="section-badge">Bonus</span>
+        <h2 class="section-title">AI Meal Advisor</h2>
+        <p class="section-sub">Ask for meal ideas, recipes, or how to hit your goals. Get suggestions you can add to your log with one tap.</p>
+      </div>
+      <div class="advisor-phone">
+        <img src="screenshot-advisor.png" alt="AI Meal Advisor – meal ideas and one-tap logging" width="280" height="606" />
       </div>
     </div>
   </section>
@@ -507,6 +623,16 @@
     document.getElementById('header-dl')?.addEventListener('click', function() {
       if (typeof gtag !== 'undefined') gtag('event', 'click', { event_category: 'download', event_label: 'header' });
     });
+    // Hide video placeholder when hero video loads (drop hero-video.mp4 or .webm in landing/)
+    (function() {
+      var video = document.getElementById('hero-video');
+      var placeholder = document.getElementById('video-placeholder');
+      if (video && placeholder) {
+        video.addEventListener('loadeddata', function() { placeholder.classList.add('hidden'); });
+        video.addEventListener('canplay', function() { placeholder.classList.add('hidden'); });
+        video.addEventListener('error', function() { placeholder.classList.remove('hidden'); });
+      }
+    })();
   </script>
 </body>
 </html>

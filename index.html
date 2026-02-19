@@ -232,12 +232,18 @@
       max-width: 280px;
       margin: 0 auto;
     }
-    .advisor-phone img {
+    .advisor-phone img,
+    .advisor-phone video {
       width: 100%;
       height: auto;
       display: block;
       border-radius: 28px;
       box-shadow: 0 24px 48px rgba(109,40,217,0.10), 0 0 0 1px rgba(0,0,0,0.04);
+    }
+    .advisor-phone video {
+      background: var(--dark);
+      aspect-ratio: 9 / 16;
+      object-fit: cover;
     }
 
     /* ─── Features ─── */
@@ -508,7 +514,11 @@
         <p class="section-sub">Ask for meal ideas, recipes, or how to hit your goals. Get suggestions you can add to your log with one tap.</p>
       </div>
       <div class="advisor-phone">
-        <img src="screenshot-advisor.png" alt="AI Meal Advisor – meal ideas and one-tap logging" width="280" height="606" />
+        <video controls playsinline preload="auto">
+          <source src="advisor-video.mp4" type="video/mp4" />
+          <source src="advisor-video.mov" type="video/quicktime" />
+          Your browser does not support the video tag.
+        </video>
       </div>
     </div>
   </section>

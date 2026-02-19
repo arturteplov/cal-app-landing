@@ -3,25 +3,50 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <title>Calipso AI – Snap. Track. Win.</title>
-  <meta name="description" content="Scan your meals with AI. Hit your calories and macros. Get your Rizz score." />
+  <title>Calipso AI – Your AI Calorie Tracker</title>
+  <meta name="description" content="Snap your meals, get instant calories and macros. Hit your nutrition goals effortlessly with Calipso AI." />
+  <link rel="icon" href="icon.png" type="image/png" />
   <style>
+    :root {
+      --purple: #6D28D9;
+      --purple-light: #8B5CF6;
+      --purple-bg: rgba(109,40,217,0.06);
+      --blue: #2563EB;
+      --blue-light: #3B82F6;
+      --dark: #111827;
+      --text: #1F2937;
+      --text-secondary: #6B7280;
+      --text-muted: #9CA3AF;
+      --bg: #FFFFFF;
+      --card-bg: #F9FAFB;
+      --border: rgba(0,0,0,0.06);
+    }
     * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
     body {
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      background: #FFFFFF;
-      color: #1A1A1A;
+      background: var(--bg);
+      color: var(--text);
       min-height: 100vh;
-      min-height: 100dvh;
       overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
     }
 
-    /* Header – app icon + title, Download CTA */
+    /* ─── Header ─── */
     .header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .header-inner {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 20px 24px;
+      padding: 16px 24px;
       max-width: 1200px;
       margin: 0 auto;
     }
@@ -29,208 +54,458 @@
       display: flex;
       align-items: center;
       gap: 12px;
+      text-decoration: none;
     }
     .header-icon {
-      width: 40px;
-      height: 40px;
+      width: 38px;
+      height: 38px;
       border-radius: 10px;
       object-fit: contain;
-      background: transparent;
     }
     .header-title {
-      font-size: 1.35rem;
+      font-size: 1.25rem;
       font-weight: 800;
-      color: #1A1A1A;
+      color: var(--dark);
     }
-    .header-title span { color: #6D28D9; }
+    .header-title span { color: var(--purple); }
     .header-cta {
-      display: inline-block;
-      padding: 12px 22px;
-      background: #2563EB;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 20px;
+      background: var(--blue);
       color: #fff;
       font-weight: 700;
-      font-size: 0.9rem;
+      font-size: 0.88rem;
       text-decoration: none;
-      border-radius: 12px;
-      transition: opacity 0.2s, transform 0.1s;
+      border-radius: 10px;
+      transition: opacity 0.2s;
     }
-    .header-cta:hover { opacity: 0.92; }
+    .header-cta:hover { opacity: 0.9; }
 
-    /* Hero: two columns */
+    /* ─── Hero ─── */
     .hero {
       max-width: 1200px;
       margin: 0 auto;
-      padding: 48px 24px 64px;
+      padding: 56px 24px 72px;
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 56px;
       align-items: center;
     }
-    @media (max-width: 900px) {
-      .hero { grid-template-columns: 1fr; text-align: center; padding-top: 32px; }
-      .hero-left { order: 1; }
-      .hero-right { order: 2; }
-    }
-
     .badge {
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      padding: 8px 16px;
+      padding: 8px 18px;
       border-radius: 999px;
-      background: rgba(109, 40, 217, 0.12);
-      border: 1px solid rgba(109, 40, 217, 0.25);
-      color: #6D28D9;
+      background: var(--purple-bg);
+      border: 1px solid rgba(109,40,217,0.18);
+      color: var(--purple);
       font-size: 0.8rem;
       font-weight: 700;
       margin-bottom: 24px;
       letter-spacing: 0.02em;
     }
     .headline {
-      font-size: clamp(2rem, 5vw, 3rem);
+      font-size: clamp(2.2rem, 5vw, 3.2rem);
       font-weight: 900;
-      line-height: 1.15;
+      line-height: 1.12;
       margin-bottom: 20px;
-      color: #1E3A5F;
+      color: var(--dark);
     }
-    .description {
-      font-size: 1.05rem;
+    .headline em {
+      font-style: normal;
+      background: linear-gradient(135deg, var(--purple) 0%, var(--blue) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero-description {
+      font-size: 1.1rem;
       line-height: 1.65;
-      color: #6B7280;
-      margin-bottom: 32px;
-      max-width: 440px;
+      color: var(--text-secondary);
+      margin-bottom: 36px;
+      max-width: 460px;
     }
-    @media (max-width: 900px) { .description { max-width: none; margin-left: auto; margin-right: auto; } }
 
-    /* Styled App Store / Google Play buttons (black, like reference) */
-    .store-buttons {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 14px;
-      align-items: center;
-    }
-    @media (max-width: 900px) { .store-buttons { justify-content: center; } }
+    /* Store buttons */
+    .store-buttons { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; }
     .store-btn {
       display: inline-flex;
       align-items: center;
-      gap: 10px;
-      padding: 14px 24px;
-      background: #000;
-      color: #fff;
-      font-weight: 700;
-      font-size: 0.95rem;
-      text-decoration: none;
-      border-radius: 8px;
-      transition: background 0.2s, opacity 0.2s;
-    }
-    .store-btn:hover { background: #1a1a1a; }
-    .store-btn svg { flex-shrink: 0; }
-    .store-btn-android {
-      background: #000;
-      cursor: pointer;
+      gap: 12px;
+      padding: 0;
+      background: transparent;
       border: none;
-      font-family: inherit;
+      text-decoration: none;
+      cursor: pointer;
+      transition: transform 0.15s;
     }
-    .store-btn-android:disabled { opacity: 0.6; cursor: not-allowed; }
+    .store-btn:hover { transform: scale(1.03); }
+    .store-btn img { height: 52px; width: auto; }
+    .store-btn-android { opacity: 0.55; cursor: not-allowed; pointer-events: none; }
 
-    /* Right column – keep 2 frame screenshots */
+    /* Phone screenshots */
     .phones {
-      position: relative;
       display: flex;
       justify-content: center;
       align-items: center;
       gap: 24px;
       min-height: 420px;
       padding: 20px 0;
-      flex-wrap: wrap;
     }
-    .screenshot-wrap {
-      max-width: 200px;
-      flex-shrink: 0;
-    }
+    .screenshot-wrap { max-width: 210px; flex-shrink: 0; }
     .screenshot-wrap img {
       width: 100%;
       height: auto;
       display: block;
       border-radius: 28px;
-      box-shadow: 0 24px 48px rgba(0,0,0,0.12), 0 0 0 1px rgba(0,0,0,0.06);
+      box-shadow: 0 32px 64px rgba(109,40,217,0.10), 0 0 0 1px rgba(0,0,0,0.04);
     }
-    .screenshot-wrap.screenshot-left  { transform: rotate(-5deg); }
-    .screenshot-wrap.screenshot-right { transform: rotate(5deg); }
-    @media (max-width: 900px) {
-      .phones { flex-direction: row; justify-content: center; gap: 16px; min-height: 320px; }
-      .screenshot-wrap { max-width: 160px; }
-      .screenshot-wrap.screenshot-left  { transform: rotate(-4deg); }
-      .screenshot-wrap.screenshot-right { transform: rotate(4deg); }
-    }
+    .screenshot-wrap.screenshot-left  { transform: rotate(-5deg) translateY(12px); }
+    .screenshot-wrap.screenshot-right { transform: rotate(5deg) translateY(-12px); }
 
-    /* Footer */
+    /* ─── Features ─── */
+    .features {
+      padding: 80px 24px;
+      background: var(--card-bg);
+    }
+    .features-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .section-badge {
+      display: inline-block;
+      padding: 6px 14px;
+      border-radius: 999px;
+      background: var(--purple-bg);
+      color: var(--purple);
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+    .section-title {
+      font-size: clamp(1.5rem, 3.5vw, 2rem);
+      font-weight: 800;
+      color: var(--dark);
+      margin-bottom: 12px;
+    }
+    .section-sub {
+      font-size: 1.05rem;
+      color: var(--text-secondary);
+      max-width: 560px;
+      line-height: 1.6;
+      margin-bottom: 48px;
+    }
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+    }
+    .feature-card {
+      background: #fff;
+      border-radius: 16px;
+      padding: 32px 28px;
+      border: 1px solid var(--border);
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+    .feature-card:hover {
+      box-shadow: 0 12px 32px rgba(109,40,217,0.08);
+      transform: translateY(-2px);
+    }
+    .feature-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      margin-bottom: 20px;
+    }
+    .feature-icon.purple { background: rgba(109,40,217,0.10); }
+    .feature-icon.blue { background: rgba(37,99,235,0.10); }
+    .feature-icon.green { background: rgba(16,185,129,0.10); }
+    .feature-title { font-size: 1.1rem; font-weight: 700; color: var(--dark); margin-bottom: 8px; }
+    .feature-desc { font-size: 0.92rem; color: var(--text-secondary); line-height: 1.55; }
+
+    /* ─── How It Works ─── */
+    .how-it-works {
+      padding: 80px 24px;
+    }
+    .how-inner {
+      max-width: 900px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 40px;
+      margin-top: 48px;
+    }
+    .step-num {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--purple), var(--blue));
+      color: #fff;
+      font-weight: 800;
+      font-size: 1.1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 18px;
+    }
+    .step-title { font-size: 1.05rem; font-weight: 700; color: var(--dark); margin-bottom: 8px; }
+    .step-desc { font-size: 0.9rem; color: var(--text-secondary); line-height: 1.55; }
+
+    /* ─── CTA ─── */
+    .cta-section {
+      padding: 80px 24px;
+      background: linear-gradient(135deg, #F5F3FF 0%, #EEF2FF 100%);
+    }
+    .cta-inner {
+      max-width: 640px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .cta-title {
+      font-size: clamp(1.5rem, 3.5vw, 2.2rem);
+      font-weight: 800;
+      color: var(--dark);
+      margin-bottom: 16px;
+    }
+    .cta-sub {
+      font-size: 1.05rem;
+      color: var(--text-secondary);
+      margin-bottom: 32px;
+      line-height: 1.6;
+    }
+    .cta-buttons { display: flex; justify-content: center; flex-wrap: wrap; gap: 14px; }
+    .cta-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 28px;
+      background: var(--purple);
+      color: #fff;
+      font-weight: 700;
+      font-size: 1rem;
+      text-decoration: none;
+      border-radius: 12px;
+      transition: opacity 0.2s, transform 0.15s;
+    }
+    .cta-btn:hover { opacity: 0.92; transform: translateY(-1px); }
+
+    /* ─── Footer ─── */
     .footer {
+      border-top: 1px solid var(--border);
+      padding: 32px 24px;
+    }
+    .footer-inner {
       max-width: 1200px;
       margin: 0 auto;
-      padding: 28px 24px;
-      border-top: 1px solid rgba(0,0,0,0.08);
       display: flex;
       flex-wrap: wrap;
-      justify-content: center;
-      gap: 20px 32px;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .footer-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .footer-brand img { width: 28px; height: 28px; border-radius: 7px; }
+    .footer-brand span { font-weight: 700; font-size: 0.95rem; color: var(--text-muted); }
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px 28px;
+    }
+    .footer-links a {
+      color: var(--text-secondary);
+      text-decoration: none;
       font-size: 0.9rem;
     }
-    .footer a {
-      color: #6B7280;
-      text-decoration: none;
+    .footer-links a:hover { color: var(--purple); }
+    .footer-copy {
+      width: 100%;
+      text-align: center;
+      margin-top: 16px;
+      font-size: 0.82rem;
+      color: var(--text-muted);
     }
-    .footer a:hover { color: #6D28D9; }
+
+    /* ─── Responsive ─── */
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: 1fr; text-align: center; padding: 40px 24px 56px; gap: 40px; }
+      .hero-left { order: 1; }
+      .hero-right { order: 2; }
+      .hero-description { max-width: none; margin-left: auto; margin-right: auto; }
+      .store-buttons { justify-content: center; }
+      .phones { gap: 16px; min-height: 320px; }
+      .screenshot-wrap { max-width: 160px; }
+      .screenshot-wrap.screenshot-left  { transform: rotate(-4deg) translateY(8px); }
+      .screenshot-wrap.screenshot-right { transform: rotate(4deg) translateY(-8px); }
+      .features-grid { grid-template-columns: 1fr; max-width: 400px; margin: 0 auto; }
+      .steps { grid-template-columns: 1fr; max-width: 360px; margin: 48px auto 0; }
+      .section-sub { max-width: none; }
+    }
+    @media (min-width: 901px) and (max-width: 1100px) {
+      .features-grid { grid-template-columns: repeat(2, 1fr); }
+    }
   </style>
 </head>
 <body>
+
+  <!-- Header -->
   <header class="header">
-    <div class="header-brand">
-      <img src="icon.png" alt="Calipso AI" class="header-icon" width="40" height="40" />
-      <span class="header-title">Calipso <span>AI</span></span>
+    <div class="header-inner">
+      <a href="/" class="header-brand">
+        <img src="icon.png" alt="Calipso AI" class="header-icon" width="38" height="38" />
+        <span class="header-title">Calipso <span>AI</span></span>
+      </a>
+      <a href="https://apps.apple.com/app/id6758564117" class="header-cta" id="header-dl">Download the App</a>
     </div>
-    <a href="https://apps.apple.com/app/id6758564117" class="header-cta">Download the App</a>
   </header>
 
+  <!-- Hero -->
   <section class="hero">
     <div class="hero-left">
-      <span class="badge">✨ AI food scan • Goals & Rizz score</span>
-      <h1 class="headline">Track your meals. Hit your goals.</h1>
-      <p class="description">
-        Scan any meal with your camera and get instant calories and macros. Set daily goals, log food, and unlock your Rizz score. Simple, fast, no guessing.
+      <span class="badge">✨ AI-Powered Nutrition Tracking</span>
+      <h1 class="headline">Snap your meals.<br><em>Hit your goals.</em></h1>
+      <p class="hero-description">
+        Point your camera at any meal and instantly get calories, protein, carbs, and fat. Set personalized goals and track everything — no manual entry needed.
       </p>
       <div class="store-buttons">
         <a href="https://apps.apple.com/app/id6758564117" class="store-btn" id="store-link">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19z"/></svg>
-          Download on the App Store
+          <img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" alt="Download on the App Store" />
         </a>
-        <span class="store-btn store-btn-android" title="Coming soon" disabled>
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M3 20.5v-17c0-.83.67-1.5 1.5-1.5h15c.83 0 1.5.67 1.5 1.5v17c0 .83-.67 1.5-1.5 1.5h-15c-.83 0-1.5-.67-1.5-1.5zM8 19h8v-2H8v2zm0-4h8v-2H8v2zm0-6h5v-1H8v1z"/></svg>
-          GET IT ON Google Play
+        <span class="store-btn store-btn-android" title="Coming soon">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" alt="Get it on Google Play" />
         </span>
       </div>
     </div>
-
     <div class="hero-right">
       <div class="phones">
         <div class="screenshot-wrap screenshot-left">
-          <img src="screenshot-scan.png" alt="Calipso AI – Scan your food" width="200" height="433" />
+          <img src="screenshot-scan.png" alt="Calipso AI – Scan your food" width="210" height="454" />
         </div>
         <div class="screenshot-wrap screenshot-right">
-          <img src="screenshot-result.png" alt="Calipso AI – Food detected and Rizz score" width="200" height="433" />
+          <img src="screenshot-result.png" alt="Calipso AI – Nutrition results" width="210" height="454" />
         </div>
       </div>
     </div>
   </section>
 
+  <!-- Features -->
+  <section class="features">
+    <div class="features-inner">
+      <span class="section-badge">Features</span>
+      <h2 class="section-title">Everything you need to eat smarter</h2>
+      <p class="section-sub">Built for people who want results without the hassle of manual food logging.</p>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon purple">📸</div>
+          <div class="feature-title">AI Food Scanner</div>
+          <div class="feature-desc">Snap a photo of any meal — our AI identifies the food and estimates calories and macros in seconds.</div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon blue">🎯</div>
+          <div class="feature-title">Personalized Goals</div>
+          <div class="feature-desc">Set your calorie, protein, carbs, and fat targets based on your body and your goals. Updated as you progress.</div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon green">📊</div>
+          <div class="feature-title">Progress Tracking</div>
+          <div class="feature-desc">See your daily intake, streaks, and trends at a glance. Stay consistent and watch yourself improve.</div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon purple">🔍</div>
+          <div class="feature-title">Barcode Scanner</div>
+          <div class="feature-desc">Scan any packaged food barcode to instantly log its nutrition — fast and accurate.</div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon blue">🤖</div>
+          <div class="feature-title">AI Meal Advisor</div>
+          <div class="feature-desc">Not sure what to eat? Get personalized meal suggestions based on your remaining macros for the day.</div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon green">🔒</div>
+          <div class="feature-title">Privacy First</div>
+          <div class="feature-desc">Your data stays on your device by default. Optional cloud sync if you sign in. We never sell your data.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works -->
+  <section class="how-it-works">
+    <div class="how-inner">
+      <span class="section-badge">How It Works</span>
+      <h2 class="section-title">Three steps. That's it.</h2>
+      <p class="section-sub" style="margin-left:auto;margin-right:auto;">No complicated setup, no food databases to memorize. Just point, snap, and go.</p>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-title">Snap a photo</div>
+          <div class="step-desc">Open the app, point at your meal, and tap. Works with any food — home-cooked, restaurant, packaged.</div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-title">Get instant results</div>
+          <div class="step-desc">Our AI analyzes the image and returns calories, protein, carbs, fat, and more — in under 3 seconds.</div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-title">Track your progress</div>
+          <div class="step-desc">Your meal is logged automatically. See how you're doing against your daily goals and keep your streak alive.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <div class="cta-inner">
+      <h2 class="cta-title">Start tracking smarter today</h2>
+      <p class="cta-sub">Join thousands of people using Calipso AI to hit their nutrition goals. Free to download.</p>
+      <div class="cta-buttons">
+        <a href="https://apps.apple.com/app/id6758564117" class="cta-btn">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19z"/></svg>
+          Download on the App Store
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
   <footer class="footer">
-    <a href="support.html">Support</a>
-    <a href="privacy.html">Privacy Policy</a>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <img src="icon.png" alt="Calipso AI" />
+        <span>Calipso AI</span>
+      </div>
+      <div class="footer-links">
+        <a href="mailto:arturteplov00@gmail.com">Support</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula/" target="_blank" rel="noopener">Terms & Conditions</a>
+      </div>
+      <div class="footer-copy">&copy; 2025 Calipso AI. All rights reserved.</div>
+    </div>
   </footer>
 
   <script>
     document.getElementById('store-link')?.addEventListener('click', function() {
       if (typeof gtag !== 'undefined') gtag('event', 'click', { event_category: 'download', event_label: 'app_store' });
+    });
+    document.getElementById('header-dl')?.addEventListener('click', function() {
+      if (typeof gtag !== 'undefined') gtag('event', 'click', { event_category: 'download', event_label: 'header' });
     });
   </script>
 </body>

@@ -180,7 +180,7 @@
     }
     .video-section .section-badge { margin-bottom: 12px; }
     .video-section .section-title { margin-bottom: 8px; }
-    .video-section .section-sub { margin-bottom: 32px; }
+    .video-section .section-sub { margin-bottom: 32px; text-align: center; margin-left: auto; margin-right: auto; }
     .video-wrap {
       position: relative;
       border-radius: 20px;
@@ -491,9 +491,9 @@
     <div class="video-inner">
       <span class="section-badge">See it in action</span>
       <h2 class="section-title">How AI scan works</h2>
-      <p class="section-sub">Point at your meal, tap to snap — get instant calories and macros. Drop your video here to show the full flow.</p>
+      <p class="section-sub">Point at your meal, tap to snap — get instant calories and macros.</p>
       <div class="video-wrap" id="video-wrap">
-        <video id="hero-video" controls playsinline preload="metadata">
+        <video id="hero-video" controls playsinline preload="auto">
           <source src="hero-video.mov" type="video/quicktime" />
           <source src="hero-video.mp4" type="video/mp4" />
           <source src="hero-video.webm" type="video/webm" />
@@ -501,7 +501,6 @@
         </video>
         <div class="video-placeholder" id="video-placeholder">Video will appear here when <strong>hero-video.mov</strong> (or .mp4 / .webm) is in the <code>landing/</code> folder.</div>
       </div>
-      <p style="margin-top:16px;font-size:0.9rem;color:var(--text-muted);">Your AI scan demo is playing from <code>landing/hero-video.mov</code>.</p>
     </div>
   </section>
 
@@ -623,14 +622,22 @@
     document.getElementById('header-dl')?.addEventListener('click', function() {
       if (typeof gtag !== 'undefined') gtag('event', 'click', { event_category: 'download', event_label: 'header' });
     });
-    // Hide video placeholder when hero video loads (drop hero-video.mp4 or .webm in landing/)
+    // Hide video placeholder when hero video loads
     (function() {
       var video = document.getElementById('hero-video');
       var placeholder = document.getElementById('video-placeholder');
       if (video && placeholder) {
-        video.addEventListener('loadeddata', function() { placeholder.classList.add('hidden'); });
-        video.addEventListener('canplay', function() { placeholder.classList.add('hidden'); });
-        video.addEventListener('error', function() { placeholder.classList.remove('hidden'); });
+        function hidePlaceholder() { placeholder.classList.add('hidden'); }
+        function showPlaceholder() { placeholder.classList.remove('hidden'); }
+        video.addEventListener('loadeddata', hidePlaceholder);
+        video.addEventListener('canplay', hidePlaceholder);
+        video.addEventListener('canplaythrough', hidePlaceholder);
+        video.addEventListener('error', function(e) {
+          console.error('Video load error:', e);
+          showPlaceholder();
+        });
+        // Check if video already loaded
+        if (video.readyState >= 2) { hidePlaceholder(); }
       }
     })();
   </script>

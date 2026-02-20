@@ -202,11 +202,25 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      color: var(--text-muted);
-      font-size: 0.95rem;
-      padding: 24px;
-      text-align: center;
-      background: var(--card-bg);
+      background: var(--dark);
+      z-index: 2;
+      pointer-events: none;
+    }
+    .video-placeholder .play-icon {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.9);
+      color: var(--dark);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.3);
+    }
+    .video-placeholder .play-icon svg {
+      width: 32px;
+      height: 32px;
+      margin-left: 4px;
     }
     .video-placeholder.hidden { display: none; }
     .video-wrap video { position: relative; z-index: 1; }
@@ -500,7 +514,11 @@
           <source src="hero-video.webm" type="video/webm" />
           Your browser does not support the video tag.
         </video>
-        <div class="video-placeholder" id="video-placeholder">Video will appear here when <strong>hero-video.mov</strong> (or .mp4 / .webm) is in the <code>landing/</code> folder.</div>
+        <div class="video-placeholder" id="video-placeholder" aria-hidden="true">
+          <span class="play-icon" aria-label="Play video">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+          </span>
+        </div>
       </div>
     </div>
   </section>

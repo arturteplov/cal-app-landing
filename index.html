@@ -185,7 +185,6 @@
       border-radius: 20px;
       overflow: hidden;
       box-shadow: 0 24px 48px rgba(109,40,217,0.12), 0 0 0 1px rgba(0,0,0,0.06);
-      background: var(--dark);
       aspect-ratio: 9 / 16;
       max-width: 340px;
       margin: 0 auto;
@@ -195,35 +194,8 @@
       height: 100%;
       object-fit: cover;
       display: block;
+      background: #111;
     }
-    .video-placeholder {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: var(--dark);
-      z-index: 2;
-      pointer-events: none;
-    }
-    .video-placeholder .play-icon {
-      width: 72px;
-      height: 72px;
-      border-radius: 50%;
-      background: rgba(255,255,255,0.9);
-      color: var(--dark);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 4px 24px rgba(0,0,0,0.3);
-    }
-    .video-placeholder .play-icon svg {
-      width: 32px;
-      height: 32px;
-      margin-left: 4px;
-    }
-    .video-placeholder.hidden { display: none; }
-    .video-wrap video { position: relative; z-index: 1; }
 
     /* AI Meal Advisor – bonus */
     .advisor-section {
@@ -255,9 +227,9 @@
       box-shadow: 0 24px 48px rgba(109,40,217,0.10), 0 0 0 1px rgba(0,0,0,0.04);
     }
     .advisor-phone video {
-      background: var(--dark);
       aspect-ratio: 9 / 16;
       object-fit: cover;
+      background: #111;
     }
 
     /* ─── Features ─── */
@@ -514,11 +486,6 @@
           <source src="hero-video.webm" type="video/webm" />
           Your browser does not support the video tag.
         </video>
-        <div class="video-placeholder" id="video-placeholder" aria-hidden="true">
-          <span class="play-icon" aria-label="Play video">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-          </span>
-        </div>
       </div>
     </div>
   </section>
@@ -645,24 +612,6 @@
     document.getElementById('header-dl')?.addEventListener('click', function() {
       if (typeof gtag !== 'undefined') gtag('event', 'click', { event_category: 'download', event_label: 'header' });
     });
-    // Hide video placeholder when hero video loads
-    (function() {
-      var video = document.getElementById('hero-video');
-      var placeholder = document.getElementById('video-placeholder');
-      if (video && placeholder) {
-        function hidePlaceholder() { placeholder.classList.add('hidden'); }
-        function showPlaceholder() { placeholder.classList.remove('hidden'); }
-        video.addEventListener('loadeddata', hidePlaceholder);
-        video.addEventListener('canplay', hidePlaceholder);
-        video.addEventListener('canplaythrough', hidePlaceholder);
-        video.addEventListener('error', function(e) {
-          console.error('Video load error:', e);
-          showPlaceholder();
-        });
-        // Check if video already loaded
-        if (video.readyState >= 2) { hidePlaceholder(); }
-      }
-    })();
   </script>
 </body>
 </html>
